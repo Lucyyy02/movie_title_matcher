@@ -1,0 +1,29 @@
+name: movie_title_matcher
+version: "1.0.0"
+config-version: 2
+profile: movie_title_matcher
+
+model-paths: ["models"]
+macro-paths: ["macros"]
+test-paths: ["tests"]
+target-path: "target"
+clean-targets: ["target", "dbt_packages"]
+
+vars:
+  # Max difference in release year allowed for a normalized-title match
+  year_tolerance: 1
+  # IMDb title types treated as films
+  imdb_film_types: ["movie", "tvMovie"]
+  # Build fails if overall precision vs. ground truth drops below this
+  min_precision: 0.95
+
+models:
+  movie_title_matcher:
+    staging:
+      +materialized: view
+    intermediate:
+      +materialized: table
+    marts:
+      +materialized: table
+    evaluation:
+      +materialized: table

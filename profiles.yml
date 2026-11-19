@@ -1,0 +1,13 @@
+movie_title_matcher:
+  target: dev
+  outputs:
+    # Full run on real MovieLens + IMDb data (local only)
+    dev:
+      type: duckdb
+      path: data/movies.duckdb
+      threads: 4
+    # CI run on the small hand-made fixtures in fixtures/
+    ci:
+      type: duckdb
+      path: data/ci.duckdb
+      threads: 4
